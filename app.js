@@ -10,20 +10,26 @@ if (port == null || port == "") {
     port = 3030;
 }
 
-app.get("/", (req, res) => {
-    date = new Date();
-    const dayName = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-    ];
-    today = dayName[date.getDay()];
+let todos = [];
 
-    res.render("list", { day: today });
+app.get("/", (req, res) => {
+    let date = new Date();
+
+    let options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+    };
+
+    let day = date.toLocaleDateString("en-US", options);
+
+    res.render("list", { day: day, todoArray: todos });
+});
+
+app.post("/", (req, res) => {
+    newTodo = req.body.newTodo;
+    todos.push(newTodo);
+    res.redirect("/");
 });
 
 app.listen(port);
