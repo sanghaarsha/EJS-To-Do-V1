@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 let port = process.env.PORT;
@@ -10,7 +11,7 @@ if (port == null || port == "") {
     port = 3030;
 }
 
-let todos = [];
+let todos = ["Buy Food", "Cook Food", "Eat Food"];
 
 app.get("/", (req, res) => {
     let date = new Date();
