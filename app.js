@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 const app = express();
 
 app.use(
@@ -15,20 +16,12 @@ if (port == null || port == "") {
     port = 3030;
 }
 // Global array for list-items of To-Do
-let todos = ["Buy Food", "Cook Food", "Eat Food"];
-let workItems = [];
+const todos = ["Buy Food", "Cook Food", "Eat Food"];
+const workItems = [];
 
 // For default List
 app.get("/", (req, res) => {
-    let date = new Date();
-
-    let options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-    };
-
-    let day = date.toLocaleDateString("en-US", options);
+    let day = date.getDate(); // from date module
 
     res.render("list", {
         listTitle: day,
